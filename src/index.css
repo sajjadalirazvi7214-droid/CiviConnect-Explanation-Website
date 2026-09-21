@@ -43,8 +43,8 @@
     @apply font-serif text-near-black font-medium tracking-tight;
   }
   
-  h1 { @apply text-4xl md:text-5xl lg:text-6xl leading-tight; }
-  h2 { @apply text-3xl md:text-4xl leading-snug; }
+  h1 { @apply text-[1.75rem] min-[480px]:text-4xl md:text-5xl lg:text-6xl leading-tight; }
+  h2 { @apply text-[1.6rem] min-[480px]:text-3xl md:text-4xl leading-snug; }
   h3 { @apply text-2xl md:text-3xl leading-snug; }
   h4 { @apply text-xl md:text-2xl leading-snug; }
   
@@ -182,47 +182,6 @@
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
-  
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-  }
-  
-  .animate-slide-up {
-    animation: slideUp 0.6s ease-out forwards;
-  }
-  
-  .delay-100 { animation-delay: 100ms; }
-  .delay-200 { animation-delay: 200ms; }
-  .delay-300 { animation-delay: 300ms; }
-  .delay-400 { animation-delay: 400ms; }
-  .delay-500 { animation-delay: 500ms; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* MapLibre GL JS styles */
-.maplibregl-canvas {
-  @apply w-full h-full;
-}
-
-.maplibregl-ctrl-group {
-  @apply rounded-lg shadow-lg border border-border overflow-hidden;
-}
-
-.maplibregl-ctrl {
-  @apply bg-white border-none;
-}
-
-.maplibregl-ctrl-button {
-  @apply text-charcoal hover:bg-off-white transition-colors;
 }
 
 /* Custom scrollbar */

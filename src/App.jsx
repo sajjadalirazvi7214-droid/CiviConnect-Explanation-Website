@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import {
   ArrowRight, BarChart3, BookOpen, CheckCircle2,
   ChevronDown, ChevronRight, Cpu, FileText,
@@ -60,7 +60,7 @@ function Label({ children, kind = 'fact' }) {
 
 function SectionHeading({ id, kicker, title, subtitle }) {
   return (
-    <div className="section-header animate-slide-up">
+    <div className="section-header">
       <p className="text-teal text-sm font-semibold uppercase tracking-widest mb-3">{kicker}</p>
       <h2 className="section-title" id={id}>{title}</h2>
       {subtitle && <p className="section-subtitle">{subtitle}</p>}
@@ -72,23 +72,8 @@ function SourceNote({ children }) {
   return <p className="source-citation mt-2">Source: {children}</p>;
 }
 
-function Reveal({ children, delay = 0 }) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { setVisible(true); obs.disconnect(); }
-    }, { threshold: 0.12 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return (
-    <div ref={ref} className={visible ? 'animate-slide-up' : 'opacity-0'} style={{ animationDelay: `${delay}ms` }}>
-      {children}
-    </div>
-  );
+function Reveal({ children }) {
+  return <>{children}</>;
 }
 
 // ============================================================
@@ -182,7 +167,7 @@ function Hero({ onNav }) {
           </p>
           <div className="flex flex-wrap justify-center gap-2 mb-2">
             <Label kind="fact" />
-            <span className="badge bg-off-white text-charcoal border border-border">Govt of Jharkhand · Higher & Technical Education</span>
+            <span className="badge bg-off-white text-charcoal border border-border text-center">Govt of Jharkhand · Higher & Technical Education</span>
           </div>
           <div className="grid lg:grid-cols-2 gap-5 my-8 text-left max-w-6xl mx-auto">
             <div className="card !border-t-4 !border-t-red-400">
@@ -229,7 +214,7 @@ function Hero({ onNav }) {
                   {['Report', 'Check', 'Government', 'Fix', 'Community check'].map((s, i, a) => (
                     <span key={s} className="flex items-center gap-1">
                       <span className="bg-blue-50 border border-blue-200 text-blue-800 rounded px-2 py-0.5 font-medium">{s}</span>
-                      {i < a.length - 1 && <span className="text-blue-500 font-bold">→</span>}
+                      {i < a.length - 1 && <span className="text-blue-500 font-bold hidden min-[480px]:inline">→</span>}
                     </span>
                   ))}
                 </div>
@@ -241,7 +226,7 @@ function Hero({ onNav }) {
                   {['Repeat flooding', 'Challenge made', 'Skills found', 'College + company matched', 'Sample', 'Trial', 'Rollout', 'Results counted'].map((s, i, a) => (
                     <span key={s} className="flex items-center gap-1">
                       <span className="bg-amber-50 border border-amber-200 text-amber-800 rounded px-2 py-0.5 font-medium">{s}</span>
-                      {i < a.length - 1 && <span className="text-amber-500 font-bold">→</span>}
+                      {i < a.length - 1 && <span className="text-amber-500 font-bold hidden min-[480px]:inline">→</span>}
                     </span>
                   ))}
                 </div>
@@ -253,7 +238,7 @@ function Hero({ onNav }) {
                   {['Problem', 'Money goal', 'People chip in', 'Work', 'Proof', 'Locals confirm'].map((s, i, a) => (
                     <span key={s} className="flex items-center gap-1">
                       <span className="bg-purple-50 border border-purple-200 text-purple-800 rounded px-2 py-0.5 font-medium">{s}</span>
-                      {i < a.length - 1 && <span className="text-purple-500 font-bold">→</span>}
+                      {i < a.length - 1 && <span className="text-purple-500 font-bold hidden min-[480px]:inline">→</span>}
                     </span>
                   ))}
                 </div>
@@ -273,11 +258,11 @@ function Hero({ onNav }) {
               </button>
             </div>
           </div>
-          <div className="flex flex-wrap justify-center gap-3 mt-8">
-            <button onClick={() => onNav('pipe-today')} className="btn-primary">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 mt-8 w-full sm:w-auto px-4 sm:px-0">
+            <button onClick={() => onNav('pipe-today')} className="btn-primary w-full sm:w-auto">
               Follow this pipe <ArrowRight className="w-4 h-4 ml-2" />
             </button>
-            <button onClick={() => onNav('journey')} className="btn-secondary">
+            <button onClick={() => onNav('journey')} className="btn-secondary w-full sm:w-auto">
               Skip to the difference
             </button>
           </div>
@@ -386,11 +371,11 @@ function Data() {
             <div className="card">
               <p className="text-teal text-sm font-semibold uppercase tracking-widest mb-2">Question 2 — Then what is breaking?</p>
               <h3 className="!text-xl mb-3">Same problems, written down in new words, with nowhere else to go.</h3>
-              <div className="table-container mb-3">
-                <table className="data-table">
+              <div className="rounded-lg border border-border overflow-hidden mb-3">
+                <table className="w-full text-sm">
                   <tbody>
-                    <tr><td>Complaint tags</td><td className="font-semibold">20 big ones → 1,239 + 18,762 small ones</td></tr>
-                    <tr><td>Still open (May 2026)</td><td className="font-semibold">81,075</td></tr>
+                    <tr><td className="text-body-text px-4 py-3 border-b border-border/50">Complaint tags</td><td className="font-semibold text-body-text px-4 py-3 border-b border-border/50">20 big ones → 1,239 + 18,762 small ones</td></tr>
+                    <tr><td className="text-body-text px-4 py-3">Still open (May 2026)</td><td className="font-semibold text-body-text px-4 py-3">81,075</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -401,7 +386,7 @@ function Data() {
             <div className="card">
               <p className="text-teal text-sm font-semibold uppercase tracking-widest mb-2">Question 3 — Is anyone able to help?</p>
               <h3 className="!text-xl mb-3">Yes — the rules built the teams. Nothing links them.</h3>
-              <div className="grid grid-cols-2 gap-3 mb-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                 {[['~423', 'Student idea labs'], ['~2,871', 'Colleges with research cells'], ['Rs 50,000 cr', 'National research fund'], ['~2.34 lakh', 'PhD students']].map(([v, l]) => (
                   <div key={l} className="bg-off-white rounded-lg border border-border p-3 text-center">
                     <p className="font-serif text-xl text-charcoal">{v}</p>
@@ -671,7 +656,7 @@ function Connection() {
                           ['Teamwork', 'Build a sample + small field trial'],
                           ['Hoped result', 'Fewer repeats, checked by fewer new reports'],
                         ].map(([k, v]) => (
-                          <div key={k} className="flex gap-3"><dt className="w-28 shrink-0 font-medium text-charcoal">{k}</dt><dd className="text-charcoal-light">{v}</dd></div>
+                          <div key={k} className="flex gap-2 sm:gap-3"><dt className="w-24 min-[480px]:w-28 shrink-0 font-medium text-charcoal text-[13px] sm:text-sm">{k}</dt><dd className="text-charcoal-light text-[13px] sm:text-sm">{v}</dd></div>
                         ))}
                       </dl>
                     )}
@@ -748,7 +733,7 @@ function Walkthrough() {
           <div className="h-2 bg-white rounded-full overflow-hidden border border-border/60 mb-6">
             <div className="h-full bg-teal rounded-full transition-all duration-300" style={{ width: `${((step + 1) / WALKTHROUGH.length) * 100}%` }} />
           </div>
-          <div className="card !p-8 min-h-[180px]" key={step}>
+          <div className="card !p-5 md:!p-8 min-h-[180px]" key={step}>
             <p className="text-teal text-sm font-semibold uppercase tracking-widest mb-2">Step {step + 1}</p>
             <h3 className="!text-2xl mb-2">{WALKTHROUGH[step][0]}</h3>
             <p className="text-charcoal-light">{WALKTHROUGH[step][1]}</p>
@@ -779,7 +764,7 @@ function Education() {
           subtitle="A checked challenge turning into a guided student project with a teacher and a mentor — not a side gift."
         />
         <div className="max-w-4xl mx-auto">
-          <div className="flex flex-col md:flex-row items-stretch gap-0">
+          <div className="grid grid-cols-2 md:grid-cols-5 items-stretch gap-3 md:gap-0">
             {[
               ['Real problem', 'Checked, from the board — topic + where it will roll out'],
               ['Student team', 'Picked by needed-skill tags'],
@@ -787,7 +772,7 @@ function Education() {
               ['Sample → small trial', 'Demo checked, then real field test'],
               ['Learning + proof', 'Skills + a record for their CV'],
             ].map(([t, b], i, arr) => (
-              <div key={t} className="flex-1 relative">
+              <div key={t} className={`relative ${i === arr.length - 1 ? 'col-span-2 md:col-span-1' : ''}`}>
                 <div className="card h-full text-center !p-5">
                   <p className="font-serif text-teal text-xl mb-1">{i + 1}</p>
                   <p className="font-medium text-charcoal text-sm mb-1">{t}</p>
@@ -849,7 +834,7 @@ function Sources() {
                     <td className="font-medium text-charcoal whitespace-nowrap">{s}</td>
                     <td className="text-charcoal-lighter text-[13px]">{r}</td>
                     <td className="text-[13px]">{w}</td>
-                    <td><a href={l} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs">Open <ExternalLink className="w-3 h-3" /></a></td>
+                    <td className="whitespace-nowrap"><a href={l} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs whitespace-nowrap">Open <ExternalLink className="w-3 h-3" /></a></td>
                   </tr>
                 ))}
               </tbody>
@@ -1076,9 +1061,9 @@ function Closing({ onNav }) {
             </p>
           </div>
           <p className="text-gray-300 mb-8">Problem → Capability → Collaboration → Impact.</p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <button onClick={() => onNav('journey')} className="btn-primary">Revisit the difference</button>
-            <button onClick={() => onNav('sources')} className="px-6 py-3 rounded-lg font-medium border border-white/25 text-white hover:bg-white/10 transition">Check the sources</button>
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 w-full sm:w-auto px-4 sm:px-0">
+            <button onClick={() => onNav('journey')} className="btn-primary w-full sm:w-auto">Revisit the difference</button>
+            <button onClick={() => onNav('sources')} className="px-6 py-3 rounded-lg font-medium border border-white/25 text-white hover:bg-white/10 transition w-full sm:w-auto">Check the sources</button>
           </div>
         </div>
       </div>
@@ -1120,9 +1105,9 @@ function Footer({ onNav }) {
             </ul>
           </div>
         </div>
-        <div className="border-t border-white/10 pt-6 text-xs flex flex-wrap justify-between gap-2">
+        <div className="border-t border-white/10 pt-6 text-xs flex flex-col sm:flex-row flex-wrap justify-between gap-2 text-center sm:text-left">
           <span>SIH 2026 · Smart Education · Team Aether Core</span>
-          <span>React + JS + Vite + Tailwind · Hono · Supabase · MapLibre + OpenFreeMap · Gemini Vision (server-side)</span>
+          <span className="break-words">React + JS + Vite + Tailwind · Hono · Supabase · MapLibre + OpenFreeMap · Gemini Vision (server-side)</span>
         </div>
       </div>
     </footer>
@@ -1169,11 +1154,11 @@ function AboutCivi({ onNav }) {
             ))}
           </div>
           <Reveal>
-            <div className="flex flex-wrap justify-center gap-3">
-              <button onClick={() => onNav('lane2')} className="btn-primary">
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 w-full sm:w-auto px-4 sm:px-0">
+              <button onClick={() => onNav('lane2')} className="btn-primary w-full sm:w-auto">
                 Lane 2 — the main story <ArrowRight className="w-4 h-4 ml-2" />
               </button>
-              <button onClick={() => onNav('pipe-today')} className="btn-secondary">
+              <button onClick={() => onNav('pipe-today')} className="btn-secondary w-full sm:w-auto">
                 First, see the problem
               </button>
             </div>
@@ -1242,7 +1227,7 @@ function Lane2Detail({ onNav }) {
                 {['Repeat flooding reported', 'Challenge made', 'Skills listed', 'College + company matched (reasons shown)', 'Sample built', 'Small trial', 'Full rollout', 'Results counted', 'Locals confirm'].map((s, i, a) => (
                   <span key={s} className="flex items-center gap-1.5">
                     <span className="bg-purple-50 border border-purple-200 text-purple-800 rounded-lg px-2.5 py-1 font-medium">{s}</span>
-                    {i < a.length - 1 && <span className="text-purple-500 font-bold">→</span>}
+                    {i < a.length - 1 && <span className="text-purple-500 font-bold hidden min-[480px]:inline">→</span>}
                   </span>
                 ))}
               </div>
@@ -1283,7 +1268,7 @@ function Lane2Detail({ onNav }) {
                     {chain.map((s, j) => (
                       <span key={s} className="flex items-center gap-1">
                         <span className="bg-amber-50 border border-amber-200 text-amber-800 rounded px-2 py-0.5 font-medium">{s}</span>
-                        {j < chain.length - 1 && <span className="text-amber-500 font-bold">→</span>}
+                        {j < chain.length - 1 && <span className="text-amber-500 font-bold hidden min-[480px]:inline">→</span>}
                       </span>
                     ))}
                   </div>
@@ -1326,22 +1311,22 @@ function PrototypeSpotlight() {
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="card !p-4 md:!p-6 mb-5">
-              <img src="/prototype.jpg" alt="The CiviConnect working prototype" loading="lazy"
+              <img src="/prototype.jpeg" alt="The CiviConnect working prototype"
                 className="w-full max-h-[480px] object-contain rounded-lg bg-off-white" />
-              <p className="text-sm text-charcoal-light mt-3 text-center">Our working prototype — the app taking shape.</p>
+              <p className="text-sm text-charcoal-light mt-3 text-center">Our working prototype — the live issue map (Municipal Corporation of Hyderabad): 7 issues pinned, lane legend, category filters, and per-issue status.</p>
             </div>
           </Reveal>
           <div className="grid sm:grid-cols-2 gap-5 mb-8">
             <Reveal>
               <div className="card !p-4">
-                <img src="/pothole.jpg" alt="Real pothole on an Indian street" loading="lazy"
+                <img src="/pothole.jpg" alt="Real pothole on an Indian street"
                   className="w-full h-64 object-cover rounded-lg" />
                 <p className="text-xs text-charcoal-light mt-2 text-center">Real street photo — the kind of report Lane 1 picks up daily.</p>
               </div>
             </Reveal>
             <Reveal delay={100}>
               <div className="card !p-4">
-                <img src="/pothole-street.webp" alt="Damaged road surface" loading="lazy"
+                <img src="/pothole-street.webp" alt="Damaged road surface"
                   className="w-full h-64 object-cover rounded-lg" />
                 <p className="text-xs text-charcoal-light mt-2 text-center">Real street photo — when damage like this repeats, it becomes a Lane 2 case.</p>
               </div>
@@ -1369,7 +1354,7 @@ function PrototypeSpotlight() {
               <Reveal key={src} delay={(i % 2) * 100}>
                 <div className="card !p-4 h-full">
                   <a href={link} target="_blank" rel="noreferrer" title="Open source page">
-                    <img src={src} alt={alt} loading="lazy" referrerPolicy="no-referrer"
+                    <img src={src} alt={alt} referrerPolicy="no-referrer"
                       className="w-full h-64 object-cover rounded-lg hover:opacity-95 transition" />
                   </a>
                   <p className="text-xs text-charcoal mt-2 text-center font-medium">{alt}</p>
